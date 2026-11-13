@@ -1,0 +1,44 @@
+name: mirror-ghidra
+
+# Copies the latest official Ghidra release zip into a release of this
+# repository so that sandboxed sessions that can only reach this repository
+# can download and install Ghidra.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/happy-lamport-ef7nzn
+    paths:
+      - .github/workflows/mirror-ghidra.yml
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Download latest Ghidra release
+        run: |
+          set -euo pipefail
+          tag=$(gh release view --repo NationalSecurityAgency/ghidra --json tagName -q .tagName)
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+          gh release download "$tag" --repo NationalSecurityAgency/ghidra --pattern '*.zip' --dir dist
+          ls -l dist
+      - name: Publish as release of this repository
+        run: |
+          set -euo pipefail
+          mirror="ghidra-mirror-${TAG}"
+          if gh release view "$mirror" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $mirror already exists; nothing to do."
+            exit 0
+          fi
+          gh release create "$mirror" dist/*.zip \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Ghidra mirror (${TAG})" \
+            --notes "Unmodified copy of the official ${TAG} release from https://github.com/NationalSecurityAgency/ghidra/releases/tag/${TAG}."
