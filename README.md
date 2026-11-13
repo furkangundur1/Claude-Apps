@@ -1,81 +1,47 @@
-<p align="center"><strong>Codex CLI</strong> is a coding agent from OpenAI that runs locally on your computer.
-<p align="center">
-  <img src="https://github.com/openai/codex/blob/main/.github/codex-cli-splash.png" alt="Codex CLI splash" width="80%" />
-</p>
-</br>
-If you want Codex in your code editor (VS Code, Cursor, Windsurf), <a href="https://developers.openai.com/codex/ide">install in your IDE.</a>
-</br>If you want the desktop app experience, run <code>codex app</code> or visit <a href="https://chatgpt.com/codex?app-landing-page=true">the Codex App page</a>.
-</br>If you are looking for the <em>cloud-based agent</em> from OpenAI, <strong>Codex Web</strong>, go to <a href="https://chatgpt.com/codex">chatgpt.com/codex</a>.</p>
+# Atölye
 
----
+Furkan Gündür'ün uygulamalarının, araştırma notlarının ve belgelerinin ana deposu. Bütün projeler burada toplanır. Yeni bir sohbette bu deponun yolunu vermek, o sohbetin her şeyi buradan okuyup devam edebilmesi için yeterlidir.
 
-## Quickstart
+Yapay zekâ asistanları için çalışma kuralları [`CLAUDE.md`](CLAUDE.md) dosyasındadır.
 
-### Installing and running Codex CLI
+## Uygulamalar
 
-Run the following on Mac or Linux to install Codex CLI:
+Her uygulama tek bir HTML sayfasıdır ve claude.ai'de "yapıt" (artifact) olarak yayınlanır. Depodaki dosya kaynaktır; yayınlanmış adres, kullandığın canlı sürümdür.
 
-```shell
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-```
+| Uygulama | Klasör | Canlı adres | Ne yapar |
+|---|---|---|---|
+| **Kemik Atölyesi** (ana proje) | [`uygulamalar/kemik-atolyesi`](uygulamalar/kemik-atolyesi) | https://claude.ai/artifact/JXHhcf8B6G6e5UssSe3ypK | Arkeolojik kemik eser ve kap stüdyosu: 3B form, desen, kulp, teknik çizim, rapor, proje galerisi. VaseMaker'dan kesit şekilleri, bükme ve 6 doku eklendi (sürüm 20). |
+| **Ses Atölyesi** | [`uygulamalar/ses-atolyesi`](uygulamalar/ses-atolyesi) | https://claude.ai/artifact/Wt1Bp6avCUN8TnkDcLD3Zs | Tarayıcıda müzik stüdyosu (DAW): Logic Pro düzenine benzeyen arayüz, FL Studio tarzı adım sıralayıcı, piyano rulosu, mikser, akıllı kontroller, sentez sesler, klavyeden kayıt. |
+| **ArkeoKap Stüdyo** | [`uygulamalar/arkeokap-studyo`](uygulamalar/arkeokap-studyo) | https://claude.ai/artifact/1BZDbxrU6TdtMX6uHWhipn | Arkeolojik seramik kap stüdyosu. Kemik Atölyesi bunun üzerine kuruldu. |
+| **Çanak Çömlek Stüdyosu** | [`uygulamalar/canak-comlek-studyosu`](uygulamalar/canak-comlek-studyosu) | https://claude.ai/artifact/EuRrSzB7qkwcVug4QJedrf | İlk seramik kap modelleyici. ArkeoKap'ın atası. |
+| **Kemik Eserler 3B** | [`uygulamalar/kemik-eserler-3b`](uygulamalar/kemik-eserler-3b) | https://claude.ai/artifact/Ggoc5eeGsTdrajxaK93bFs | Kemik eserlerin 3B modellerini gösteren sayfa. Modeller Kemik Atölyesi'ndekilerle aynı. |
+| Kemik Atölyesi (eski sürüm) | [`uygulamalar/kemik-atolyesi-eski`](uygulamalar/kemik-atolyesi-eski) | https://claude.ai/artifact/5E4LnPPuHZrWxdsemF8n1y | Önceki ayrı Kemik Atölyesi. Görseller ana Kemik Atölyesi klasöründe. |
+| Mini 3D Atölye | [`uygulamalar/mini-3d-atolye`](uygulamalar/mini-3d-atolye) | https://claude.ai/artifact/BzYHfw4R8x8fvXoKWTRmeL | Blender'ın veri modeli incelenerek sıfırdan yazılmış küçük 3B editör prototipi. |
+| Kasa Laboratuvarı | [`uygulamalar/kasa-laboratuvari`](uygulamalar/kasa-laboratuvari) | https://claude.ai/artifact/5TosLXgnUZnUw8kJpCmEEd | İlk tersine mühendislik dersi: küçük bir programın şifresini makine kodundan bulma. |
 
-Run the following on Windows to install Codex CLI:
+### Kemik Atölyesi'nin verileri
 
-```shell
-powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
-```
+`uygulamalar/kemik-atolyesi/` içinde sayfanın kullandığı dosyalar da var:
 
-The standalone installers download from `https://releases.openai.com/codex` by default and fall back to GitHub Releases if a metadata or asset download is unavailable. To force GitHub Releases, set `CODEX_INSTALLER_USE_RELEASES_OPENAI_COM` to `false` (`0` and `no` are also accepted):
+- `foto/`: eser fotoğrafları (AP06–AP09 envanter numaraları)
+- `kucuk/`: küçük önizleme görselleri
+- `levha/`: yayın levhaları
+- `modeller/`: tamamlanmış 3B modeller (JSON)
 
-```shell
-curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_INSTALLER_USE_RELEASES_OPENAI_COM=false sh
-```
+Sayfa bu dosyaları göreli yolla (`foto/...`) okur, bu yüzden klasör yapısı bozulmamalıdır.
 
-```powershell
-$env:CODEX_INSTALLER_USE_RELEASES_OPENAI_COM='false'; irm https://chatgpt.com/codex/install.ps1 | iex
-```
+## Belgeler
 
-Codex CLI can also be installed via the following package managers:
+Claude Docs'ta duran, birlikte düzenlenen belgeler. Adresleri ve özetleri [`belgeler/README.md`](belgeler/README.md) içinde.
 
-```shell
-# Install using npm
-npm install -g @openai/codex
-```
+## Araştırma
 
-```shell
-# Install using Homebrew
-brew install --cask codex
-```
+- [`arastirma/rea`](arastirma/rea): REA (tersine mühendislik aracı) kurulumu ve kullanımı.
+- [`arastirma/blender`](arastirma/blender): Blender'ın iç yapısını ölçtüğümüz betik ve bulgular.
+- [`arastirma/vasemaker`](arastirma/vasemaker): VaseMaker'dan Kemik Atölyesi'ne neyin, nasıl taşındığı ve lisansı.
 
-Then simply run `codex` to get started.
+## Yol haritası
 
-<details>
-<summary>You can also go to the <a href="https://github.com/openai/codex/releases/latest">latest GitHub Release</a> and download the appropriate binary for your platform.</summary>
-
-Each GitHub Release contains many executables, but in practice, you likely want one of these:
-
-- macOS
-  - Apple Silicon/arm64: `codex-aarch64-apple-darwin.tar.gz`
-  - x86_64 (older Mac hardware): `codex-x86_64-apple-darwin.tar.gz`
-- Linux
-  - x86_64: `codex-x86_64-unknown-linux-musl.tar.gz`
-  - arm64: `codex-aarch64-unknown-linux-musl.tar.gz`
-
-Each archive contains a single entry with the platform baked into the name (e.g., `codex-x86_64-unknown-linux-musl`), so you likely want to rename it to `codex` after extracting it.
-
-</details>
-
-### Using Codex with your ChatGPT plan
-
-Run `codex` and select **Sign in with ChatGPT**. We recommend signing into your ChatGPT account to use Codex as part of your Plus, Pro, Business, Edu, or Enterprise plan. [Learn more about what's included in your ChatGPT plan](https://help.openai.com/en/articles/11369540-codex-in-chatgpt).
-
-You can also use Codex with an API key, but this requires [additional setup](https://developers.openai.com/codex/auth#sign-in-with-an-api-key).
-
-## Docs
-
-- [**Codex Documentation**](https://developers.openai.com/codex)
-- [**Contributing**](./docs/contributing.md)
-- [**Installing & building**](./docs/install.md)
-- [**Open source fund**](./docs/open-source-fund.md)
-
-This repository is licensed under the [Apache-2.0 License](LICENSE).
+- **Kemik Atölyesi:** VaseMaker'ın döküm kalıbı üreticisi, kabartma süs (sprig), delikli gövde, taban mührü; modifier yığını; heykel (sculpt) fırçaları.
+- **Ses Atölyesi:** Ableton tarzı döngü ızgarası, WAV dışa aktarma, mikrofonla kayıt, örneklenmiş sesler, otomasyon.
+- **Genel:** Blender .blend dosyası okuma.
